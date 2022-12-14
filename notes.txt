@@ -1,0 +1,4 @@
+Create REST Categories for admin users
+Quiz created at column for db?
+create admin user (user roles concept)
+User dashboard (CRUD Quizzes / Categories (for admins olnly))

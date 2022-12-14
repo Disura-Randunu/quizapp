@@ -1,0 +1,71 @@
+<?php
+
+class Usermodel extends CI_Model
+{
+    private $table = "users";
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+    }
+
+    public function save_user($email, $username, $password)
+    {
+        $data = array(
+            'email' => $email,
+            'username' => $username,
+            'password' => $password
+        );
+        return $this->db->insert($this->table, $data);
+    }
+
+    public function get_user_by_username($username)
+    {
+        $this->db->where('username', $username);
+        $query = $this->db->get($this->table);
+        if ($query->num_rows() === 1) {
+            return $query->row();
+        } else {
+            return false;
+        }
+    }
+
+    public function login($username, $password)
+    {
+        $user = $this->get_user_by_username($username);
+        if ($user) {
+            $this->session->is_logged_in = true;
+            $this->session->username = $username;
+            return password_verify($password, $user->password);
+        } else {
+            return false;
+        }
+    }
+
+    public function logout($username)
+    {
+        $this->session->is_logged_in = false;
+        $this->session->username = null;
+    }
+
+    public function is_logged_in()
+    {
+        if (isset($this->session->is_logged_in)) {
+            return $this->session->is_logged_in;
+        } else {
+            return false;
+        }
+    }
+
+    public function signup($email, $username, $password)
+    {
+        if ($this->save_user($email, $username, password_hash($password, PASSWORD_DEFAULT))) {
+            $this->session->is_logged_in = true;
+            $this->session->username = $username;
+            return true;
+        } else {
+            return false;
+        }
+    }
+}

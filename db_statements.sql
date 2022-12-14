@@ -45,9 +45,60 @@ CREATE TABLE `quizapp_dev`.`answers` (
     CONSTRAINT FK_AnswerQuestion FOREIGN KEY (`question_id`) REFERENCES answers(`id`)
 );
 
+
 INSERT INTO `categories`(`name`)
 VALUES('Sports'),('Entertainment'),('Gaming'),('Science'),('Technology'),('Miscellaneous');
 
 INSERT INTO `quizzes` (`id`, `title`, `description`, `questions_amount`, `user_id`, `category_id`) VALUES (NULL, 'Gaming Test 1', 'Ddkskfjskd fkdgsj ksdjgsdkg', '3', '1', '3')
 -- CREATE TABLE `quizapp_dev`.`quizzes` (`id` INT NOT NULL AUTO_INCREMENT , `title` VARCHAR(255) NOT NULL , `description` VARCHAR(300) NOT NULL , `questions_amount` INT NOT NULL , `user_id` INT NOT NULL , `category_id` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 -- ALTER TABLE `quizzes` ADD CONSTRAINT `FK_QuizUser` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+
+-- NEW STATEMENTS AFTER DESIGN --
+-- Q&A FOREIGN KEY CONSTRAINT?
+ALTER TABLE `users` ADD UNIQUE(`username`);
+
+ALTER TABLE `quizzes` ADD `status` BOOLEAN NOT NULL AFTER `category_id`;
+ALTER TABLE `quizzes` ADD `code` VARCHAR(255) NOT NULL AFTER `id`;
+ALTER TABLE `quizzes` ADD UNIQUE(`code`)
+
+ALTER TABLE `categories` ADD `code` VARCHAR(255) NOT NULL AFTER `id`;
+ALTER TABLE `categories` ADD UNIQUE(`code`)
+
+ALTER TABLE `questions` ADD `code` VARCHAR(255) NOT NULL AFTER `id`;
+ALTER TABLE `questions` ADD UNIQUE(`code`)
+
+ALTER TABLE `answers` ADD `code` VARCHAR(255) NOT NULL AFTER `id`;
+ALTER TABLE `answers` ADD UNIQUE(`code`);
+
+ALTER TABLE `quizzes` DROP INDEX `FK_QuizUser`;
+ALTER TABLE `quizzes` DROP INDEX `FK_QuizCategory`;
+ALTER TABLE quizapp_dev.quizzes DROP FOREIGN KEY FK_QuizUser;
+ALTER TABLE quizapp_dev.quizzes DROP FOREIGN KEY FK_QuizCategory
+
+ALTER TABLE `quizzes` CHANGE `user_id` `username` VARCHAR(255) NOT NULL;
+ALTER TABLE `quizzes` CHANGE `category_id` `category_code` VARCHAR(255) NOT NULL;
+
+ALTER TABLE `quizzes` ADD CONSTRAINT `FK_QuizUser` FOREIGN KEY (`username`) REFERENCES `users`(`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `quizzes` ADD CONSTRAINT `FK_QuizCategory` FOREIGN KEY (`category_code`) REFERENCES `categories`(`code`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `questions` DROP INDEX `FK_QuestionQuiz`;
+ALTER TABLE quizapp_dev.questions DROP FOREIGN KEY FK_QuestionQuiz;
+ALTER TABLE `questions` CHANGE `quiz_id` `quiz_code` VARCHAR(255) NOT NULL;
+ALTER TABLE `questions` ADD CONSTRAINT `FK_QuestionQuiz` FOREIGN KEY (`quiz_code`) REFERENCES `quizzes`(`code`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `answers` DROP INDEX `FK_AnswerQuestion`;
+ALTER TABLE quizapp_dev.answers DROP FOREIGN KEY FK_AnswerQuestion
+ALTER TABLE `answers` CHANGE `question_id` `question_code` VARCHAR(255) NOT NULL;
+ALTER TABLE `answers` ADD CONSTRAINT `FK_AnswerQuestion` FOREIGN KEY (`question_code`) REFERENCES `questions`(`code`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+INSERT INTO `categories` ( `code`, `name`) VALUES ('CAT_1', 'Gaming'), ('CAT_2', 'Technology')
+
+CREATE TABLE IF NOT EXISTS `ci_sessions` (
+        `id` varchar(128) NOT NULL,
+        `ip_address` varchar(45) NOT NULL,
+        `timestamp` int(10) unsigned DEFAULT 0 NOT NULL,
+        `data` blob NOT NULL,
+        KEY `ci_sessions_timestamp` (`timestamp`)
+);
