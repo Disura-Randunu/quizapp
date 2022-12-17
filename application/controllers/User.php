@@ -8,6 +8,8 @@ class User extends CI_Controller
     {
         parent::__construct();
         $this->load->model("Usermodel");
+        $this->load->model('Rolemodel');
+
     }
 
     public function login()
@@ -16,13 +18,6 @@ class User extends CI_Controller
         $this->load->view('nav');
         $this->load->view('login');
         $this->load->view('footer');
-
-        // if ($this->Usermodel->login("disu", "123")) {
-        //     echo 'OK';
-        //     echo print_r($_SESSION);
-        // } else {
-        //     echo 'FAILED';
-        // }
     }
 
     public function submit_login()
@@ -44,7 +39,12 @@ class User extends CI_Controller
 
     public function submit_signup()
     {
-        if ($this->Usermodel->signup($this->input->post('email'), $this->input->post('username'), $this->input->post('password'))) {
+        if ($this->Usermodel->signup(
+            $this->input->post('email'),
+            $this->input->post('username'),
+            $this->input->post('password'),
+            $this->Rolemodel->get_role_by_code('GENERAL_USER')->id
+        )) {
             redirect('/');
         } else {
             redirect('/user/signup');
@@ -54,7 +54,14 @@ class User extends CI_Controller
     public function logout()
     {
         $this->Usermodel->logout();
+        redirect('/');
     }
 
-    
+    public function dashboard()
+    {
+        $this->load->view('head');
+        $this->load->view('nav');
+        $this->load->view('dashboard');
+        $this->load->view('footer');
+    }
 }

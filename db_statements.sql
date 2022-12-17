@@ -102,3 +102,109 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
         `data` blob NOT NULL,
         KEY `ci_sessions_timestamp` (`timestamp`)
 );
+
+ALTER TABLE `categories` ADD `image` VARCHAR(500) NOT NULL AFTER `name`;
+
+CREATE TABLE `quizapp_dev`.`roles` (`id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(50) NOT NULL , `code` VARCHAR(50) NOT NULL , PRIMARY KEY (`id`))
+
+ALTER TABLE `users` ADD `role_code` VARCHAR(50) NOT NULL AFTER `password`;
+ALTER TABLE `users` ADD CONSTRAINT `FK_UserRole` FOREIGN KEY (`role_code`) REFERENCES `roles`(`code`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+
+INSERT INTO `roles` (`name`, `code`) VALUES ('Admin User', 'ADMIN'), ('General User', 'GENERAL_USER')
+INSERT INTO `users` (`username`, `email`, `password`, `role_code`) VALUES ('admin', 'disuru.2018008@iit.ac.lk', '123', 'ADMIN');
+
+ALTER TABLE `quizzes` ADD `image` VARCHAR(500) NULL AFTER `description`;
+
+
+
+---- Refactored SQL ----
+
+CREATE TABLE `quizapp_dev_2`.`roles` (
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `name` VARCHAR(50) NOT NULL ,
+    `code` VARCHAR(255) NOT NULL ,
+    CONSTRAINT PK_Role PRIMARY KEY (`id`),
+    CONSTRAINT UQ_Role UNIQUE (`code`)
+);
+
+CREATE TABLE `quizapp_dev_2`.`users`(
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `email` VARCHAR(255) NOT NULL,
+    `username` VARCHAR(100) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
+    `role` INT NULL,
+    CONSTRAINT PK_User PRIMARY KEY(`id`),
+    CONSTRAINT UQ_User UNIQUE(`username`),
+    CONSTRAINT FK_UserRole FOREIGN KEY(`role`) REFERENCES `roles`(`id`) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+
+CREATE TABLE `quizapp_dev_2`.`categories`(
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `code` VARCHAR(255) NOT NULL,
+    `name` VARCHAR(100) NOT NULL,
+    `image` VARCHAR(255) NULL,
+    CONSTRAINT PK_Category PRIMARY KEY(`id`),
+    CONSTRAINT UQ_Category UNIQUE(`code`)
+);
+
+CREATE TABLE `quizapp_dev_2`.`quizzes` (
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `code` VARCHAR(255) NOT NULL ,
+    `title` VARCHAR(255) NOT NULL ,
+    `description` VARCHAR(300) NOT NULL ,
+    `image` VARCHAR(255) NULL ,
+    `questions_amount` INT NULL ,
+    `user` INT NOT NULL ,
+    `category` INT NULL ,
+    `status` BOOLEAN NOT NULL ,
+    CONSTRAINT PK_Quiz PRIMARY KEY (`id`),
+    CONSTRAINT UQ_Quiz UNIQUE (`code`),
+    CONSTRAINT FK_QuizUser FOREIGN KEY (`user`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT FK_QuizCategory FOREIGN KEY (`category`) REFERENCES `categories`(`id`) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+CREATE TABLE `quizapp_dev_2`.`questions` (
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `code` VARCHAR(255) NOT NULL ,
+    `description` VARCHAR(255) NOT NULL ,
+    `quiz` INT NOT NULL ,
+    CONSTRAINT PK_Question PRIMARY KEY (`id`),
+    CONSTRAINT UQ_Question UNIQUE (`code`),
+    CONSTRAINT FK_QuestionQuiz FOREIGN KEY (`quiz`) REFERENCES `quizzes`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE `quizapp_dev_2`.`answers` (
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `code` VARCHAR(255) NOT NULL ,
+    `value` VARCHAR(255) NOT NULL ,
+    `is_correct` BOOLEAN NOT NULL ,
+    `question` INT NOT NULL ,
+    CONSTRAINT PK_Answer PRIMARY KEY (`id`),
+    CONSTRAINT UQ_Answer UNIQUE (`code`),
+    CONSTRAINT FK_AnswerQuestion FOREIGN KEY (`question`) REFERENCES `questions`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS `ci_sessions` (
+        `id` varchar(128) NOT NULL,
+        `ip_address` varchar(45) NOT NULL,
+        `timestamp` int(10) unsigned DEFAULT 0 NOT NULL,
+        `data` blob NOT NULL,
+        KEY `ci_sessions_timestamp` (`timestamp`)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

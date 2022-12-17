@@ -2,6 +2,9 @@
 
 class Usermodel extends CI_Model
 {
+    private static $ADMIN_ROLE = 1;
+    private static $GNERAL_USER_ROLE = 1;
+
     private $table = "users";
 
     public function __construct()
@@ -10,12 +13,13 @@ class Usermodel extends CI_Model
         $this->load->database();
     }
 
-    public function save_user($email, $username, $password)
+    public function save_user($email, $username, $password, $role)
     {
         $data = array(
             'email' => $email,
             'username' => $username,
-            'password' => $password
+            'password' => $password,
+            'role' => $role
         );
         return $this->db->insert($this->table, $data);
     }
@@ -43,7 +47,7 @@ class Usermodel extends CI_Model
         }
     }
 
-    public function logout($username)
+    public function logout()
     {
         $this->session->is_logged_in = false;
         $this->session->username = null;
@@ -58,9 +62,9 @@ class Usermodel extends CI_Model
         }
     }
 
-    public function signup($email, $username, $password)
+    public function signup($email, $username, $password, $role)
     {
-        if ($this->save_user($email, $username, password_hash($password, PASSWORD_DEFAULT))) {
+        if ($this->save_user($email, $username, password_hash($password, PASSWORD_DEFAULT), $role)) {
             $this->session->is_logged_in = true;
             $this->session->username = $username;
             return true;

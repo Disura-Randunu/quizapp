@@ -3,7 +3,7 @@
     <div class="collapse navbar-collapse" id="navcol-2">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item"><a class="nav-link" href="/quizapp/server">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="/quizapp/server/index.php/quiz/all">Quizzes</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?php echo base_url('index.php/quiz')?>">Quizzes</a></li>
         <li class="nav-item"><a class="nav-link" href="/quizapp/server/index.php/category">Categories</a></li>
       </ul><a class="btn btn-primary ml-lg-2" role="button" href="#"><?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'Log in' ?></a>
       

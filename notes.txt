@@ -2,3 +2,12 @@ Create REST Categories for admin users
 Quiz created at column for db?
 create admin user (user roles concept)
 User dashboard (CRUD Quizzes / Categories (for admins olnly))
+quiz and cartegory images
+
+ $this->db->error();
+
+ set ENV in index to production
+ disable db debug in database config
+ super user request validation for admin creation and stuff like that
+ DB error handling -> show error page with custom message\
+ check base_url functionality in live serverw

@@ -2,6 +2,8 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+use Restserver\Libraries\REST_Controller;
+
 // This can be removed if you use __autoload() in config.php OR use Modular Extensions
 /** @noinspection PhpIncludeInspection */
 require APPPATH . '/libraries/REST_Controller.php';
@@ -17,18 +19,30 @@ require APPPATH . '/libraries/REST_Controller.php';
  * @license         MIT
  * @link            https://github.com/chriskacerguis/codeigniter-restserver
  */
-class Example extends \Restserver\Libraries\REST_Controller {
+class Users extends REST_Controller {
 
     function __construct()
     {
         // Construct the parent class
         parent::__construct();
-
+        $this->load->model('Usermodel');
+        $this->load->model('Rolemodel');
         // Configure limits on our controller methods
         // Ensure you have created the 'limits' table and enabled 'limits' within application/config/rest.php
         $this->methods['users_get']['limit'] = 500; // 500 requests per hour per user/key
         $this->methods['users_post']['limit'] = 100; // 100 requests per hour per user/key
         $this->methods['users_delete']['limit'] = 50; // 50 requests per hour per user/key
+    }
+
+
+    public function admin_users_post()
+    {
+        $this->Usermodel->signup(
+            $this->post('email'),
+            $this->post('username'),
+            $this->post('password'),
+            $this->Rolemodel->get_role_by_code('ADMIN')->id
+        );
     }
 
     public function users_get()
