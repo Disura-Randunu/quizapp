@@ -120,7 +120,16 @@ ALTER TABLE `quizzes` ADD `image` VARCHAR(500) NULL AFTER `description`;
 
 ---- Refactored SQL ----
 
-CREATE TABLE `quizapp_dev_2`.`roles` (
+CREATE TABLE IF NOT EXISTS `ci_sessions` (
+        `id` varchar(128) NOT NULL,
+        `ip_address` varchar(45) NOT NULL,
+        `timestamp` int(10) unsigned DEFAULT 0 NOT NULL,
+        `data` blob NOT NULL,
+        KEY `ci_sessions_timestamp` (`timestamp`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `roles` (
     `id` INT NOT NULL AUTO_INCREMENT , 
     `name` VARCHAR(50) NOT NULL ,
     `code` VARCHAR(255) NOT NULL ,
@@ -128,7 +137,12 @@ CREATE TABLE `quizapp_dev_2`.`roles` (
     CONSTRAINT UQ_Role UNIQUE (`code`)
 );
 
-CREATE TABLE `quizapp_dev_2`.`users`(
+INSERT INTO `roles` (`name`, `code`) 
+VALUES  ('Admin', 'ADMIN'),
+        ('General User', 'GENERAL_USER');
+
+
+CREATE TABLE IF NOT EXISTS `users`(
     `id` INT NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(255) NOT NULL,
     `username` VARCHAR(100) NOT NULL,
@@ -140,7 +154,7 @@ CREATE TABLE `quizapp_dev_2`.`users`(
 );
 
 
-CREATE TABLE `quizapp_dev_2`.`categories`(
+CREATE TABLE IF NOT EXISTS `categories`(
     `id` INT NOT NULL AUTO_INCREMENT,
     `code` VARCHAR(255) NOT NULL,
     `name` VARCHAR(100) NOT NULL,
@@ -149,7 +163,7 @@ CREATE TABLE `quizapp_dev_2`.`categories`(
     CONSTRAINT UQ_Category UNIQUE(`code`)
 );
 
-CREATE TABLE `quizapp_dev_2`.`quizzes` (
+CREATE TABLE IF NOT EXISTS `quizzes` (
     `id` INT NOT NULL AUTO_INCREMENT , 
     `code` VARCHAR(255) NOT NULL ,
     `title` VARCHAR(255) NOT NULL ,
@@ -165,7 +179,7 @@ CREATE TABLE `quizapp_dev_2`.`quizzes` (
     CONSTRAINT FK_QuizCategory FOREIGN KEY (`category`) REFERENCES `categories`(`id`) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
-CREATE TABLE `quizapp_dev_2`.`questions` (
+CREATE TABLE IF NOT EXISTS `questions` (
     `id` INT NOT NULL AUTO_INCREMENT , 
     `code` VARCHAR(255) NOT NULL ,
     `description` VARCHAR(255) NOT NULL ,
@@ -175,7 +189,7 @@ CREATE TABLE `quizapp_dev_2`.`questions` (
     CONSTRAINT FK_QuestionQuiz FOREIGN KEY (`quiz`) REFERENCES `quizzes`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE `quizapp_dev_2`.`answers` (
+CREATE TABLE IF NOT EXISTS `answers` (
     `id` INT NOT NULL AUTO_INCREMENT , 
     `code` VARCHAR(255) NOT NULL ,
     `value` VARCHAR(255) NOT NULL ,
@@ -186,13 +200,6 @@ CREATE TABLE `quizapp_dev_2`.`answers` (
     CONSTRAINT FK_AnswerQuestion FOREIGN KEY (`question`) REFERENCES `questions`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS `ci_sessions` (
-        `id` varchar(128) NOT NULL,
-        `ip_address` varchar(45) NOT NULL,
-        `timestamp` int(10) unsigned DEFAULT 0 NOT NULL,
-        `data` blob NOT NULL,
-        KEY `ci_sessions_timestamp` (`timestamp`)
-);
 
 
 

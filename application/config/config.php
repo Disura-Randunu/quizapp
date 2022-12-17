@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = '/quizapp/server/';
+$config['base_url'] = '/quizapp';
 
 /*
 |--------------------------------------------------------------------------
@@ -368,7 +368,7 @@ $config['encryption_key'] = '';
 |
 */
 $config['sess_driver'] = 'database';
-$config['sess_cookie_name'] = 'ci_sessions';
+$config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;
 $config['sess_save_path'] = 'ci_sessions';
 $config['sess_match_ip'] = FALSE;
