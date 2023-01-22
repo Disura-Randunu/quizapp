@@ -1,42 +1,52 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 use Restserver\Libraries\REST_Controller;
+
 require APPPATH . '/libraries/REST_Controller.php';
 // require APPPATH . '/libraries/Format.php';
 
 
-class Questions extends REST_Controller {
-
+class Questions extends REST_Controller
+{
+    private $api_key;
+    
     function __construct()
     {
         parent::__construct();
         $this->load->model("Questionmodel");
         
-        $this->methods['index_get']['limit'] = 500; // 500 requests per hour per user/key
-        // $this->methods['users_post']['limit'] = 100; // 100 requests per hour per user/key
-        // $this->methods['users_delete']['limit'] = 50; // 50 requests per hour per user/key
+        $this->api_key = $this->input->get_request_header('API_KEY', true);
+
     }
 
-    public function index_get()
+    public function index_get($id = false)
     {
-        $questions = $this->Questionmodel->get_questions_by_quiz_id(intval($this->get('quiz')));
-        // $quiz_id = $this->uri->segment(4);
-        
-        if ($questions) {
-            $this->response([
-                'status' => TRUE, 
-                'message' => "All Question For Quiz",
-                'data' => $questions
-            ], REST_Controller::HTTP_OK);
-        } else {
-            $this->response([
-                'status' => FALSE,
-                'message' => 'No Questions Found'
-            ], REST_Controller::HTTP_NOT_FOUND);
+        if (!validate_request($this->api_key)) {
+            return $this->set_response(null, REST_Controller::HTTP_FORBIDDEN);
         }
 
+        $quiz_id = $this->get('quiz_id');
+
+        $data = null;
+
+        if ($id) {
+            $data = $this->Questionmodel->get_questions($id);
+        } else {
+            $data = $this->Questionmodel->get_questions($quiz_id ? $quiz_id : false);
+        }
+
+        return $this->set_response($data, REST_Controller::HTTP_OK);
     }
 
+    public function index_delete($id)
+    {
+        if (!validate_request($this->api_key)) {
+            return $this->set_response(null, REST_Controller::HTTP_FORBIDDEN);
+        }
+
+        $this->Questionmodel->delete_question($id);
+        return $this->set_response(null, REST_Controller::HTTP_NO_CONTENT);
+    }
 }

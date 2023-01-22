@@ -9,7 +9,6 @@ class User extends CI_Controller
         parent::__construct();
         $this->load->model("Usermodel");
         $this->load->model('Rolemodel');
-
     }
 
     public function login()
@@ -53,8 +52,12 @@ class User extends CI_Controller
 
     public function logout()
     {
+        if (!$this->session->is_logged_in) {
+            return redirect('user/login');
+        }
+
         $this->Usermodel->logout();
-        redirect('/');
+        return redirect('/');
     }
 
     public function dashboard()

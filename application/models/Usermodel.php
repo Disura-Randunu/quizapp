@@ -2,8 +2,8 @@
 
 class Usermodel extends CI_Model
 {
-    private static $ADMIN_ROLE = 1;
-    private static $GNERAL_USER_ROLE = 1;
+    private static $ADMIN_USER_ROLE = 1;
+    private static $GNERAL_USER_ROLE = 2;
 
     private $table = "users";
 
@@ -35,13 +35,24 @@ class Usermodel extends CI_Model
         }
     }
 
+    public function get_user_by_id($id)
+    {
+        $this->db->where('id', $id);
+        $query = $this->db->get($this->table);
+        if ($query->num_rows() === 1) {
+            return $query->row();
+        } else {
+            return false;
+        }
+    }
+
     public function login($username, $password)
     {
         $user = $this->get_user_by_username($username);
-        if ($user) {
+        if ($user && password_verify($password, $user->password)) {
             $this->session->is_logged_in = true;
             $this->session->username = $username;
-            return password_verify($password, $user->password);
+            return true;
         } else {
             return false;
         }

@@ -12,10 +12,9 @@ class Home extends CI_Controller
 
     public function index()
     {
-        // log_message('error', "testing errror log");
         $this->load->view('head');
         $this->load->view('nav');
-        $this->load->view('home', array('latest_quizzes' => $this->Quizmodel->get_latest_quizzes(5)));
+        $this->load->view('home', array('latest_quizzes' => $this->Quizmodel->get_latest_quizzes(6, true)));
         $this->load->view('footer');
     }
 

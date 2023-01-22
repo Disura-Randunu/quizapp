@@ -69,13 +69,4 @@ class Categorymodel extends CI_Model
         $this->db->where('id', $id);
         return $this->db->delete($this->table);
     }
-
-
-
-    // public function get_all_category_codes()
-    // {
-    //     $categories = $this->get_all_categories();
-    //     return array_column($categories, 'code');
-    // }
-
 }

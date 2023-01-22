@@ -118,7 +118,7 @@ ALTER TABLE `quizzes` ADD `image` VARCHAR(500) NULL AFTER `description`;
 
 
 
----- Refactored SQL ----
+---- Refactored SQL (Run Below Statements in a fresh DB) ----
 
 CREATE TABLE IF NOT EXISTS `ci_sessions` (
         `id` varchar(128) NOT NULL,
@@ -127,7 +127,6 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
         `data` blob NOT NULL,
         KEY `ci_sessions_timestamp` (`timestamp`)
 );
-
 
 CREATE TABLE IF NOT EXISTS `roles` (
     `id` INT NOT NULL AUTO_INCREMENT , 
@@ -141,7 +140,6 @@ INSERT INTO `roles` (`name`, `code`)
 VALUES  ('Admin', 'ADMIN'),
         ('General User', 'GENERAL_USER');
 
-
 CREATE TABLE IF NOT EXISTS `users`(
     `id` INT NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(255) NOT NULL,
@@ -152,7 +150,6 @@ CREATE TABLE IF NOT EXISTS `users`(
     CONSTRAINT UQ_User UNIQUE(`username`),
     CONSTRAINT FK_UserRole FOREIGN KEY(`role`) REFERENCES `roles`(`id`) ON DELETE SET NULL ON UPDATE CASCADE
 );
-
 
 CREATE TABLE IF NOT EXISTS `categories`(
     `id` INT NOT NULL AUTO_INCREMENT,
@@ -200,13 +197,32 @@ CREATE TABLE IF NOT EXISTS `answers` (
     CONSTRAINT FK_AnswerQuestion FOREIGN KEY (`question`) REFERENCES `questions`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+ALTER TABLE `quizzes` CHANGE `image` `image` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;
 
+ALTER TABLE `categories` CHANGE `image` `image` VARCHAR(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;
 
-
-
-
-
-
+INSERT INTO `categories`(`code`, `name`, `image`)
+VALUES(
+    'category_1', 
+    'Science', 
+    'https://images.unsplash.com/photo-1534777410147-084a460870fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
+),(
+    'category_2',
+    'Technology',
+    'https://images.unsplash.com/photo-1589254065878-42c9da997008?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
+),(
+    'category_3',
+    'Gaming',
+    'https://images.unsplash.com/photo-1552875102-1638873599fe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
+),(
+    'category_4',
+    'Entertainment',
+    'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80'
+),(
+    'category_5',
+    'Miscellaneous',
+    'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80'
+);
 
 
 
