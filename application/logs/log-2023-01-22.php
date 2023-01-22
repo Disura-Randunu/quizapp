@@ -852,3 +852,48 @@ ERROR - 2023-01-22 20:42:28 --> 404 Page Not Found: Bfdnbfdhfdh/index
 DEBUG - 2023-01-22 20:42:30 --> UTF-8 Support Enabled
 DEBUG - 2023-01-22 20:42:30 --> Global POST, GET and COOKIE data sanitized
 DEBUG - 2023-01-22 20:42:30 --> Total execution time: 0.0354
+DEBUG - 2023-01-22 20:43:56 --> UTF-8 Support Enabled
+DEBUG - 2023-01-22 20:43:56 --> No URI present. Default controller set.
+DEBUG - 2023-01-22 20:43:56 --> Global POST, GET and COOKIE data sanitized
+ERROR - 2023-01-22 20:43:56 --> Severity: Warning --> sizeof(): Parameter must be an array or an object that implements Countable C:\xampp\htdocs\quizapp\application\views\home.php 8
+ERROR - 2023-01-22 20:43:56 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\quizapp\application\views\home.php 10
+DEBUG - 2023-01-22 20:43:56 --> Total execution time: 0.0483
+DEBUG - 2023-01-22 20:44:17 --> UTF-8 Support Enabled
+DEBUG - 2023-01-22 20:44:17 --> No URI present. Default controller set.
+DEBUG - 2023-01-22 20:44:17 --> Global POST, GET and COOKIE data sanitized
+ERROR - 2023-01-22 20:44:17 --> Severity: Warning --> count(): Parameter must be an array or an object that implements Countable C:\xampp\htdocs\quizapp\application\views\home.php 8
+ERROR - 2023-01-22 20:44:17 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\quizapp\application\views\home.php 10
+DEBUG - 2023-01-22 20:44:17 --> Total execution time: 0.0413
+DEBUG - 2023-01-22 20:44:54 --> UTF-8 Support Enabled
+DEBUG - 2023-01-22 20:44:54 --> No URI present. Default controller set.
+DEBUG - 2023-01-22 20:44:54 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2023-01-22 20:44:54 --> Total execution time: 0.0373
+DEBUG - 2023-01-22 20:45:04 --> UTF-8 Support Enabled
+DEBUG - 2023-01-22 20:45:04 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2023-01-22 20:45:04 --> Total execution time: 0.0386
+DEBUG - 2023-01-22 20:46:30 --> UTF-8 Support Enabled
+DEBUG - 2023-01-22 20:46:30 --> No URI present. Default controller set.
+DEBUG - 2023-01-22 20:46:30 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2023-01-22 20:46:30 --> Total execution time: 0.0362
+DEBUG - 2023-01-22 20:46:31 --> UTF-8 Support Enabled
+DEBUG - 2023-01-22 20:46:31 --> No URI present. Default controller set.
+DEBUG - 2023-01-22 20:46:31 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2023-01-22 20:46:31 --> Total execution time: 0.0401
+DEBUG - 2023-01-22 20:46:31 --> UTF-8 Support Enabled
+DEBUG - 2023-01-22 20:46:31 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2023-01-22 20:46:31 --> Total execution time: 0.0406
+DEBUG - 2023-01-22 20:46:32 --> UTF-8 Support Enabled
+DEBUG - 2023-01-22 20:46:32 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2023-01-22 20:46:32 --> Total execution time: 0.0316
+DEBUG - 2023-01-22 20:46:33 --> UTF-8 Support Enabled
+DEBUG - 2023-01-22 20:46:33 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2023-01-22 20:46:33 --> Total execution time: 0.0413
+DEBUG - 2023-01-22 20:46:34 --> UTF-8 Support Enabled
+DEBUG - 2023-01-22 20:46:34 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2023-01-22 20:46:34 --> Total execution time: 0.0282
+DEBUG - 2023-01-22 20:46:35 --> UTF-8 Support Enabled
+DEBUG - 2023-01-22 20:46:35 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2023-01-22 20:46:35 --> Total execution time: 0.0304
+DEBUG - 2023-01-22 20:46:36 --> UTF-8 Support Enabled
+DEBUG - 2023-01-22 20:46:36 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2023-01-22 20:46:36 --> Total execution time: 0.0308

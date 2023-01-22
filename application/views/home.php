@@ -5,7 +5,7 @@
                 <h2 class="font-weight-bold">Latest Quizzes</h2>
             </div>
         </div>
-        <?php if (sizeof($latest_quizzes) > 0) : ?>
+        <?php if (is_array($latest_quizzes) && sizeof($latest_quizzes) > 0) : ?>
             <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 mb-5">
                 <?php foreach ($latest_quizzes as $quiz) : ?>
                     <a class="text-dark text-decoration-none" href="<?php echo base_url("index.php/quizzes/{$quiz['id']}"); ?>">

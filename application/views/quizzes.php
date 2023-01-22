@@ -34,7 +34,7 @@
                 </form>
             </div>
         </div>
-        <?php if (sizeof($quizzes) > 0) : ?>
+        <?php if (is_array($quizzes) && sizeof($quizzes) > 0) : ?>
             <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
                 <?php foreach ($quizzes as $quiz) : ?>
                     <a class="text-dark text-decoration-none" href="<?php echo base_url("index.php/quizzes/{$quiz['id']}"); ?>">
