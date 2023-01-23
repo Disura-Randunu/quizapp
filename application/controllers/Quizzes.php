@@ -40,7 +40,7 @@ class Quizzes extends CI_Controller
         $this->load->view('head');
         $this->load->view('nav');
         $this->load->view('quizzes', array(
-            'quizzes' => $this->Quizmodel->get_all_quizzes($category === "all" ? false : $category, $search_string),
+            'quizzes' => $this->Quizmodel->get_all_quizzes($category === "all" ? false : $category, $search_string, true),
             'categories' => $this->Categorymodel->get_all_categories(),
             'selected_category' => $category,
             'entered_search_string' => $search_string,
