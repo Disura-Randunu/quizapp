@@ -52,6 +52,10 @@ class Usermodel extends CI_Model
         if ($user && password_verify($password, $user->password)) {
             $this->session->is_logged_in = true;
             $this->session->username = $username;
+            
+            $payload = array('username' => $username, 'password' => $user->password);
+            set_cookie('jwt_token', generate_jwt(false, $payload), 7200);
+
             return true;
         } else {
             return false;
@@ -62,6 +66,7 @@ class Usermodel extends CI_Model
     {
         $this->session->is_logged_in = false;
         $this->session->username = null;
+        delete_cookie('jwt_token');
     }
 
     public function is_logged_in()
@@ -75,9 +80,15 @@ class Usermodel extends CI_Model
 
     public function signup($email, $username, $password, $role)
     {
-        if ($this->save_user($email, $username, password_hash($password, PASSWORD_DEFAULT), $role)) {
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        if ($this->save_user($email, $username, $hashed_password, $role)) {
             $this->session->is_logged_in = true;
             $this->session->username = $username;
+
+            $payload = array('username' => $username, 'password' => $hashed_password);
+            set_cookie('jwt_token', generate_jwt(false, $payload), 7200);
+
             return true;
         } else {
             return false;
