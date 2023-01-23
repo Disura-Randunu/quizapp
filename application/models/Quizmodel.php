@@ -26,7 +26,7 @@ class Quizmodel extends CI_Model
         }
 
         if ($search_string) {
-            $this->db->like('title', $search_string);
+            $this->db->like('LOWER(title)', strtolower($search_string));
         }
 
         $this->db->order_by('id', 'DESC');
