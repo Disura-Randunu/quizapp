@@ -25,7 +25,7 @@ class Quizzes extends REST_Controller
 
     public function index_post()
     {
-        if (!validate_request($this->api_key)) {
+        if (!validate_request($this->input->get_request_header('API_KEY', true)) || !validate_jwt(get_cookie('jwt_token'))) {
             return $this->set_response(null, REST_Controller::HTTP_FORBIDDEN);
         }
 
@@ -48,7 +48,7 @@ class Quizzes extends REST_Controller
     public function index_get($id = false)
     {
 
-        if (!validate_request($this->input->get_request_header('API_KEY', true))) {
+        if (!validate_request($this->input->get_request_header('API_KEY', true)) || !validate_jwt(get_cookie('jwt_token'))) {
             return $this->set_response(null, REST_Controller::HTTP_FORBIDDEN);
         }
 
@@ -75,17 +75,17 @@ class Quizzes extends REST_Controller
 
     public function index_put($id)
     {
-        if (!validate_request($this->input->get_request_header('API_KEY', true))) {
+        if (!validate_request($this->input->get_request_header('API_KEY', true)) || !validate_jwt(get_cookie('jwt_token'))) {
             return $this->set_response(null, REST_Controller::HTTP_FORBIDDEN);
         }
-
+        
         $this->Quizmodel->update_quiz($id, $this->put("status"));
         return $this->set_response(null, REST_Controller::HTTP_NO_CONTENT);
     }
 
     public function index_delete($id)
     {
-        if (!validate_request($this->api_key)) {
+        if (!validate_request($this->input->get_request_header('API_KEY', true)) || !validate_jwt(get_cookie('jwt_token'))) {
             return $this->set_response(null, REST_Controller::HTTP_FORBIDDEN);
         }
 
@@ -95,7 +95,7 @@ class Quizzes extends REST_Controller
 
     public function questions_answers_post($quiz_id)
     {
-        if (!validate_request($this->api_key)) {
+        if (!validate_request($this->input->get_request_header('API_KEY', true)) || !validate_jwt(get_cookie('jwt_token'))) {
             return $this->set_response(null, REST_Controller::HTTP_FORBIDDEN);
         }
 

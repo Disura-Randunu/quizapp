@@ -23,7 +23,7 @@ class Questions extends REST_Controller
 
     public function index_get($id = false)
     {
-        if (!validate_request($this->api_key)) {
+        if (!validate_request($this->input->get_request_header('API_KEY', true)) || !validate_jwt(get_cookie('jwt_token'))) {
             return $this->set_response(null, REST_Controller::HTTP_FORBIDDEN);
         }
 
@@ -42,7 +42,7 @@ class Questions extends REST_Controller
 
     public function index_delete($id)
     {
-        if (!validate_request($this->api_key)) {
+        if (!validate_request($this->input->get_request_header('API_KEY', true)) || !validate_jwt(get_cookie('jwt_token'))) {
             return $this->set_response(null, REST_Controller::HTTP_FORBIDDEN);
         }
 
