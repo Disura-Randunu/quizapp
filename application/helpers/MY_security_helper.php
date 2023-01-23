@@ -10,7 +10,7 @@ function validate_user($request_username, $session_username)
     return ($request_username === $session_username);
 }
 
-function generate_jwt($headers = false, $payload, $secret = 'UmFuZHVudURpc3VyYVcxNzYxODY1MjAxODAwOA==')
+function generate_jwt($headers, $payload, $secret = 'UmFuZHVudURpc3VyYVcxNzYxODY1MjAxODAwOA==')
 {
     $default_headers = array('alg' => 'HS256', 'typ' => 'JWT');
 
