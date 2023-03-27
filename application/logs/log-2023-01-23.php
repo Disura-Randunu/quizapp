@@ -254,3 +254,9 @@ ERROR - 2023-01-23 03:47:17 --> 404 Page Not Found: Sfsfsfsf/index
 ERROR - 2023-01-23 03:47:17 --> 404 Page Not Found: 11111111dkdsgd1/index
 DEBUG - 2023-01-23 03:47:17 --> Global POST, GET and COOKIE data sanitized
 ERROR - 2023-01-23 03:47:17 --> 404 Page Not Found: 111111111/index
+DEBUG - 2023-01-23 14:12:15 --> UTF-8 Support Enabled
+DEBUG - 2023-01-23 14:12:16 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2023-01-23 14:12:16 --> UTF-8 Support Enabled
+DEBUG - 2023-01-23 14:12:16 --> No URI present. Default controller set.
+DEBUG - 2023-01-23 14:12:16 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2023-01-23 14:12:16 --> Total execution time: 0.0868
